@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Survivors - ناجو من الوحوش</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="1000" height="700"></canvas>
+        
+        <!-- لوحة القدرات -->
+        <div id="inventory">
+            <h3>القدرات</h3>
+            <div id="inventory-list"></div>
+        </div>
+        
+        <div id="mainMenu">
+            <h1 class="menu-title">ناجو من الوحوش</h1>
+            
+            <!-- زر الإعدادات في الأعلى على اليسار -->
+            <button class="settings-button" id="settingsButton">
+                <span class="settings-icon">⚙️</span>
+            </button>
+            
+            <div class="icon-menu">
+                <!-- أيقونة المتجر -->
+                <div class="menu-icon" id="shopButton">
+                    <div class="icon-container">
+                        <span class="icon shop-icon">🛒</span>
+                        <span class="icon-label">المتجر</span>
+                    </div>
+                </div>
+                
+                <!-- أيقونة اختيار المستوى -->
+                <div class="menu-icon" id="difficultyButton">
+                    <div class="icon-container">
+                        <span class="icon difficulty-icon">🎯</span>
+                        <span class="icon-label">المستوى</span>
+                    </div>
+                    <!-- قائمة المستويات المنسدلة -->
+                    <div class="difficulty-dropdown" id="difficultyDropdown">
+                        <div class="difficulty-option" data-difficulty="easy">
+                            <span class="difficulty-icon-easy">😊</span>
+                            <span>سهل</span>
+                        </div>
+                        <div class="difficulty-option selected" data-difficulty="normal">
+                            <span class="difficulty-icon-normal">😐</span>
+                            <span>متوسط</span>
+                        </div>
+                        <div class="difficulty-option" data-difficulty="hard">
+                            <span class="difficulty-icon-hard">😠</span>
+                            <span>صعب</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- زر بدء اللعبة -->
+                <button class="start-game-button" id="startGame">ابدأ اللعبة</button>
+                
+                <!-- أيقونة الإنجازات -->
+                <div class="menu-icon" id="achievementsButton">
+                    <div class="icon-container">
+                        <span class="icon achievements-icon">🏆</span>
+                        <span class="icon-label">الإنجازات</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- اختيار السلاح (يظهر بعد بدء اللعبة) -->
+            <div class="weapon-select" id="weaponSelect" style="display: none;">
+                <h3>اختر سلاحك</h3>
+                <div class="weapon-option" data-weapon="sword">
+                    <span class="weapon-icon">⚔️</span>
+                    <span>السيف الفولاذي</span>
+                    <p>هجمات قوية عن قرب</p>
+                </div>
+                <div class="weapon-option" data-weapon="staff">
+                    <span class="weapon-icon">🔮</span>
+                    <span>العصا السحرية</span>
+                    <p>هجمات سحرية متوسطة المدى</p>
+                </div>
+                <div class="weapon-option" data-weapon="bow">
+                    <span class="weapon-icon">🏹</span>
+                    <span>القوس السحري</span>
+                    <p>هجمات دقيقة بعيدة المدى</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameUI">
+            <div class="ui-bar">
+                <div class="health-bar">
+                    <div class="health-fill" id="healthFill"></div>
+                </div>
+                <div class="level-display">المستوى: <span id="levelDisplay">1</span></div>
+            </div>
+            <div class="ui-bar">
+                <div class="exp-bar">
+                    <div class="exp-fill" id="expFill"></div>
+                </div>
+                <!-- العملات الجديدة -->
+                <div class="coins-ui">
+                    <span id="coinsDisplay">0</span>
+                    <span class="coin-icon">🪙</span>
+                </div>
+            </div>
+            
+            <div id="skillsUI">
+                <button id="dashSkill" class="skill-button">انفجارية (Shift)</button>
+                <button id="shockwaveSkill" class="skill-button">موجة صدمية (Space)</button>
+            </div>
+        </div>
+
+        <div id="upgradeMenu">
+            <h2 class="upgrade-title">اختر ترقية</h2>
+            <div class="upgrade-options" id="upgradeOptions"></div>
+        </div>
+
+        <div id="gameOver">
+            <h2 class="game-over-title">انتهت اللعبة</h2>
+            <div class="stats">
+                <p>المستوى الذي وصلت إليه: <span id="finalLevel">1</span></p>
+                <p>الوقت الذي صمدت فيه: <span id="survivalTime">0</span> ثانية</p>
+                <p>العملات المكتسبة: <span id="coinsEarned">0</span></p>
+            </div>
+            <button class="menu-button" id="restartButton">إعادة المحاولة</button>
+            <button class="menu-button back-button" id="mainMenuButton">القائمة الرئيسية</button>
+        </div>
+
+        <div id="shopMenu">
+            <h2 class="shop-title">متجر الترقيات</h2>
+            <div class="coins-display">العملات: <span id="shopCoins">0</span></div>
+            
+            <!-- تبويبات المتجر -->
+            <div class="shop-tabs">
+                <div class="shop-tab active" data-tab="upgrades">الترقيات</div>
+                <div class="shop-tab" data-tab="characters">الشخصيات</div>
+            </div>
+            
+            <!-- محتوى التبويبات -->
+            <div class="shop-content">
+                <!-- تبويب الترقيات -->
+                <div id="upgrades-tab" class="tab-content active">
+                    <div class="shop-items" id="shopItems"></div>
+                </div>
+                
+                <!-- تبويب الشخصيات -->
+                <div id="characters-tab" class="tab-content">
+                    <div class="characters-container" id="charactersContainer"></div>
+                </div>
+            </div>
+            
+            <button class="menu-button back-button" id="backFromShop">عودة</button>
+            <button class="menu-button" id="weaponUpgradeButton">تحسين الأسلحة</button>
+        </div>
+
+        <div id="weaponUpgradeMenu">
+            <h2 class="shop-title">تحسين الأسلحة</h2>
+            <div class="coins-display">العملات: <span id="weaponUpgradeCoins">0</span></div>
+            <div class="weapon-upgrade-items" id="weaponUpgradeItems"></div>
+            <button class="menu-button back-button" id="backFromWeaponUpgrade">عودة</button>
+        </div>
+
+        <div id="achievementsMenu">
+            <h2 class="menu-title">الإنجازات</h2>
+            <div id="achievementsList"></div>
+            <button class="menu-button back-button" id="backFromAchievements">عودة</button>
+        </div>
+    </div>
+
+    <!-- زر ملء الشاشة خارج اللعبة -->
+    <button id="fullscreenBtn" class="fullscreen-button">⛶ ملء الشاشة</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

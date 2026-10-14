@@ -1,0 +1,1221 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+
+/* متغيرات الألوان للأزرار */
+:root {
+  --btn-main: #1e90ff;     /* اللون الأساسي */
+  --btn-light: #f8d229;    /* لون فاتح */
+  --btn-dark: #187bcd;     /* لون غامق */
+  --btn-shadow: #145a99;   /* لون الظل */
+  --btn-text: #ffffff;     /* لون النص */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(135deg, #1a0a0a 0%, #2d1a1a 50%, #1a0a0a 100%);
+    color: #fff;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* خلفية متحركة */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 100, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 50, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 150, 0, 0.05) 0%, transparent 70%);
+    animation: backgroundPulse 8s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes backgroundPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+#gameContainer {
+    position: relative;
+    background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+    border-radius: 20px;
+    box-shadow: 
+        0 0 50px rgba(255, 100, 0, 0.3),
+        0 0 100px rgba(255, 50, 0, 0.2),
+        inset 0 0 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #ffd700, #ff8c00, #ffd700) 1;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    border-radius: 15px;
+    cursor: crosshair;
+    display: block;
+    background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
+}
+
+/* القائمة الرئيسية - تصميم خيالي */
+#mainMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(20, 10, 5, 0.95) 50%, 
+        rgba(0, 0, 0, 0.9) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 17px;
+    backdrop-filter: blur(5px);
+}
+
+/* تأثيرات إضاءة خلفية القائمة */
+#mainMenu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 40%);
+    z-index: -1;
+    animation: menuGlow 6s ease-in-out infinite;
+}
+
+@keyframes menuGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+.menu-title {
+    font-size: 64px;
+    font-weight: 900;
+    margin-bottom: 40px;
+    text-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.8),
+        0 0 40px rgba(255, 140, 0, 0.6),
+        0 0 60px rgba(255, 69, 0, 0.4);
+    animation: titlePulse 3s ease-in-out infinite;
+    background: linear-gradient(45deg, #ffd700, #ff8c00, #ff4500);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    letter-spacing: 3px;
+    position: relative;
+}
+
+/* تأثيرات حول العنوان */
+.menu-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+    animation: titleLine 2s ease-in-out infinite;
+}
+
+@keyframes titleLine {
+    0%, 100% { width: 150px; opacity: 0.5; }
+    50% { width: 250px; opacity: 1; }
+}
+
+@keyframes titlePulse {
+    0%, 100% { 
+        transform: scale(1); 
+        text-shadow: 
+            0 0 20px rgba(255, 215, 0, 0.8),
+            0 0 40px rgba(255, 140, 0, 0.6);
+    }
+    50% { 
+        transform: scale(1.05); 
+        text-shadow: 
+            0 0 30px rgba(255, 215, 0, 1),
+            0 0 50px rgba(255, 140, 0, 0.8),
+            0 0 70px rgba(255, 69, 0, 0.6);
+    }
+}
+
+/* تصميم الأزرار باستخدام متغيرات CSS */
+.menu-button, 
+.weapon-option, 
+.difficulty-option, 
+.upgrade-option, 
+.shop-item, 
+.weapon-upgrade-item, 
+.skill-button, 
+.back-button,
+.start-button, 
+.upgrade-button, 
+.option-button,
+.btn,
+button {
+    background: linear-gradient(to bottom, var(--btn-light), var(--btn-main));
+    color: var(--btn-text);
+    border: 2px solid var(--btn-dark);
+    border-radius: 6px;
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 0px var(--btn-shadow),
+                0px 6px 12px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    margin: 12px;
+    font-family: 'Tajawal', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* تأثير التمرير فوق الأزرار */
+.menu-button:hover, 
+.weapon-option:hover, 
+.difficulty-option:hover, 
+.upgrade-option:hover, 
+.shop-item:hover, 
+.weapon-upgrade-item:hover, 
+.skill-button:hover, 
+.back-button:hover,
+.start-button:hover, 
+.upgrade-button:hover, 
+.option-button:hover,
+.btn:hover,
+button:hover {
+    background: linear-gradient(to bottom, #66d4ff, #1fb6ff);
+    box-shadow: 0px 2px 0px var(--btn-shadow),
+                0px 8px 16px rgba(0,0,0,0.5);
+    transform: translateY(-2px);
+}
+
+/* تأثير النقر على الأزرار */
+.menu-button:active, 
+.weapon-option:active, 
+.difficulty-option:active, 
+.upgrade-option:active, 
+.shop-item:active, 
+.weapon-upgrade-item:active, 
+.skill-button:active, 
+.back-button:active,
+.start-button:active, 
+.upgrade-button:active, 
+.option-button:active,
+.btn:active,
+button:active {
+    background: linear-gradient(to bottom, #3bb0e6, var(--btn-dark));
+    box-shadow: 0px 1px 0px var(--btn-shadow),
+                0px 4px 8px rgba(0,0,0,0.4);
+    transform: translateY(2px);
+}
+
+/* تأثير الموجة عند النقر */
+.menu-button::after, 
+.weapon-option::after, 
+.difficulty-option::after, 
+.upgrade-option::after, 
+.shop-item::after, 
+.weapon-upgrade-item::after, 
+.skill-button::after, 
+.back-button::after,
+.start-button::after, 
+.upgrade-button::after, 
+.option-button::after,
+.btn::after,
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.8s, height 0.8s;
+}
+
+.menu-button:active::after, 
+.weapon-option:active::after, 
+.difficulty-option:active::after, 
+.upgrade-option:active::after, 
+.shop-item:active::after, 
+.weapon-upgrade-item:active::after, 
+.skill-button:active::after, 
+.back-button:active::after,
+.start-button:active::after, 
+.upgrade-button:active::after, 
+.option-button:active::after,
+.btn:active::after,
+button:active::after {
+    width: 400px;
+    height: 400px;
+}
+
+/* زر الإعدادات */
+.settings-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.8), rgba(60, 30, 15, 0.8));
+    border: 2px solid #8b6914;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.settings-button:hover {
+    transform: scale(1.1);
+    border-color: #ffd700;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+.settings-icon {
+    font-size: 24px;
+}
+
+/* قائمة الأيقونات */
+.icon-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+/* أيقونات القائمة */
+.menu-icon {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.8), rgba(60, 30, 15, 0.8));
+    border: 2px solid #8b6914;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.menu-icon:hover .icon-container {
+    transform: translateY(-8px) scale(1.08);
+    border-color: #ffd700;
+    background: linear-gradient(145deg, rgba(60, 30, 15, 0.9), rgba(80, 40, 20, 0.9));
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.icon-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+/* زر بدء اللعبة */
+.start-game-button {
+    background: linear-gradient(145deg, #32cd32, #228b22);
+    color: white;
+    border: 2px solid #006400;
+    border-radius: 30px;
+    padding: 15px 40px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 20px 0;
+    font-family: 'Tajawal', sans-serif;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.start-game-button:hover {
+    background: linear-gradient(145deg, #3cb371, #2e8b57);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(0, 100, 0, 0.4);
+}
+
+/* القائمة المنسدلة لاختيار المستوى */
+.difficulty-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 15px;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 10, 10, 0.95));
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    padding: 15px;
+    display: none;
+    z-index: 30;
+    min-width: 200px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.difficulty-dropdown.show {
+    display: block;
+}
+
+.difficulty-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin: 5px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-option:hover {
+    background: linear-gradient(145deg, rgba(60, 30, 15, 0.8), rgba(80, 40, 20, 0.8));
+}
+
+.difficulty-option.selected {
+    background: linear-gradient(145deg, rgba(80, 20, 10, 0.9), rgba(120, 30, 15, 0.9));
+    border: 1px solid #ff4500;
+}
+
+.difficulty-icon-easy, .difficulty-icon-normal, .difficulty-icon-hard {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+/* اختيار السلاح */
+.weapon-select {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.weapon-select h3 {
+    font-size: 24px;
+    color: #ffd700;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+.weapon-option {
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.8), rgba(60, 30, 15, 0.8));
+    border: 2px solid #8b6914;
+    padding: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    text-align: center;
+    width: 220px;
+    margin: 0 auto 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.weapon-option:hover {
+    border-color: #ffd700;
+    background: linear-gradient(145deg, rgba(60, 30, 15, 0.9), rgba(80, 40, 20, 0.9));
+    transform: translateY(-8px) scale(1.08);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+}
+
+.weapon-option.selected {
+    border-color: #ff4500;
+    background: linear-gradient(145deg, rgba(80, 20, 10, 0.9), rgba(120, 30, 15, 0.9));
+    box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
+}
+
+.weapon-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.weapon-option span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffd700;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.weapon-option p {
+    font-size: 16px;
+    color: #f0e68c;
+}
+
+/* واجهة اللعبة - تصميم خيالي */
+#gameUI {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: none;
+    z-index: 5;
+    transform-origin: top left;
+    transition: transform 0.2s ease;
+}
+
+.ui-bar {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 10, 10, 0.8));
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.health-bar, .exp-bar {
+    flex: 1;
+    height: 25px;
+    background: linear-gradient(145deg, rgba(40, 20, 20, 0.8), rgba(60, 30, 30, 0.8));
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 69, 0, 0.3);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff4500, #ff8c00, #ffd700);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+}
+
+.exp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #32cd32, #00ff00, #7cfc00);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 15px rgba(50, 205, 50, 0.6);
+}
+
+.level-display {
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 25px;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* قوائم الترقية - تصميم خيالي */
+#upgradeMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 10, 10, 0.95));
+    padding: 40px;
+    border-radius: 20px;
+    display: none;
+    z-index: 15;
+    min-width: 500px;
+    text-align: center;
+    border: 2px solid #ffd700;
+    box-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.5),
+        0 0 100px rgba(255, 140, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.upgrade-title {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #ffd700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.upgrade-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* شاشة النهاية - تصميم خيالي */
+#gameOver {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(40, 20, 20, 0.95));
+    padding: 50px;
+    border-radius: 20px;
+    display: none;
+    z-index: 20;
+    text-align: center;
+    border: 2px solid #ff4500;
+    box-shadow: 
+        0 0 50px rgba(255, 69, 0, 0.5),
+        0 0 100px rgba(255, 140, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.game-over-title {
+    font-size: 48px;
+    color: #ff4500;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.stats {
+    margin: 30px 0;
+    font-size: 22px;
+    line-height: 1.8;
+    color: #ffd700;
+}
+
+/* المتاجر - تصميم خيالي */
+#shopMenu, #weaponUpgradeMenu, #achievementsMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 10, 10, 0.95));
+    padding: 40px;
+    border-radius: 20px;
+    display: none;
+    z-index: 15;
+    min-width: 600px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border: 2px solid #ffd700;
+    box-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.5),
+        0 0 100px rgba(255, 140, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.shop-title {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #ffd700;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.coins-display {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffd700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    font-weight: bold;
+}
+
+.shop-items, .weapon-upgrade-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.shop-item-name, .weapon-upgrade-item-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+.shop-item-cost, .weapon-upgrade-item-cost {
+    color: #ff8c00;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.shop-item-level, .weapon-upgrade-item-level {
+    color: #cd853f;
+    font-size: 16px;
+    margin-top: 8px;
+}
+
+#skillsUI {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
+}
+
+/* الإنجازات - تصميم خيالي */
+#achievementsList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.achievement {
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.8), rgba(60, 30, 15, 0.8));
+    border: 2px solid #8b6914;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.achievement:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.achievement.unlocked {
+    border-color: #ffd700;
+    background: linear-gradient(145deg, rgba(60, 30, 15, 0.9), rgba(80, 40, 20, 0.9));
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+.achievement-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.achievement-description {
+    font-size: 16px;
+    color: #f0e68c;
+}
+
+.achievement-progress {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #daa520;
+    font-weight: bold;
+}
+
+/* تأثير الموجة عند النقر */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, transparent 70%);
+    transform: scale(0);
+    animation: ripple-animation 0.8s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(6);
+        opacity: 0;
+    }
+}
+
+/* تحسينات للشخصيات */
+.player-character, .enemy-character, .boss-character {
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.7));
+}
+
+/* تأثيرات للشخصيات */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes enemy-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+}
+
+/* تأثيرات للزعيم */
+@keyframes boss-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* لوحة القدرات - تصميم خيالي */
+#inventory {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 220px;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.9), rgba(20, 10, 10, 0.9));
+    color: white;
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    padding: 15px;
+    font-family: 'Tajawal', sans-serif;
+    opacity: 0;
+    transform: translateY(-30px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 999;
+    direction: rtl;
+    box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.5),
+        0 0 60px rgba(255, 140, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+#inventory.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+#inventory h3 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    text-align: center;
+    color: #ffd700;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.inv-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.6), rgba(60, 30, 15, 0.6));
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.inv-item:hover {
+    background: linear-gradient(145deg, rgba(60, 30, 15, 0.8), rgba(80, 40, 20, 0.8));
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateX(-5px);
+}
+
+.inv-item img {
+    width: 32px; 
+    height: 32px;
+    margin-left: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.inv-item span {
+    flex: 1;
+    font-size: 15px;
+    color: #f0e68c;
+    font-weight: bold;
+}
+
+.inv-item .cooldown {
+    color: #ff8c00;
+    font-size: 13px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* تحسينات للوحة القدرات */
+#inventory .ability-section {
+    margin-top: 15px;
+    border-top: 2px solid rgba(255, 215, 0, 0.3);
+    padding-top: 12px;
+}
+
+#inventory .ability-title {
+    font-size: 18px;
+    color: #ffd700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* تأثيرات إضافية للواجهة */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* تأثيرات للتمرير */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(20, 10, 10, 0.8));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #ffd700, #ff8c00);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(145deg, #ffed4e, #ffa500);
+}
+
+/* تصميم بطاقات الشخصيات */
+.character-card {
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.8), rgba(60, 30, 15, 0.8));
+    border: 2px solid #8b6914;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.character-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: #ffd700;
+}
+
+.character-card.selected {
+    border-color: #ff4500;
+    background: linear-gradient(145deg, rgba(60, 30, 15, 0.9), rgba(80, 40, 20, 0.9));
+    box-shadow: 0 0 25px rgba(255, 69, 0, 0.4);
+}
+
+.character-card.locked {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.character-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: linear-gradient(145deg, #ff4500, #ff8c00);
+    color: white;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+}
+
+.character-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.character-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.character-description {
+    font-size: 16px;
+    color: #f0e68c;
+    margin-bottom: 15px;
+}
+
+.character-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.character-stats div {
+    text-align: center;
+}
+
+.character-stats span {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff8c00;
+}
+
+.buy-character-btn, .select-character-btn {
+    background: linear-gradient(145deg, #32cd32, #228b22);
+    border: 2px solid #006400;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.buy-character-btn:hover, .select-character-btn:hover {
+    background: linear-gradient(145deg, #3cb371, #2e8b57);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 100, 0, 0.3);
+}
+
+.buy-character-btn:disabled, .select-character-btn:disabled {
+    background: linear-gradient(145deg, #666, #555);
+    border-color: #444;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* تبويبات المتجر */
+.shop-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.shop-tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #cd853f;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.shop-tab:hover {
+    color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.shop-tab.active {
+    color: #ffd700;
+    border-bottom-color: #ffd700;
+    background: rgba(255, 215, 0, 0.15);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* تأثيرات للمتجر */
+.shop-item-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.shop-item-effect {
+    font-size: 14px;
+    color: #ccc;
+    margin: 5px 0;
+    text-align: center;
+}
+
+/* قائمة الإعدادات */
+.settings-menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 10, 10, 0.95));
+    padding: 30px;
+    border-radius: 20px;
+    z-index: 100;
+    min-width: 400px;
+    border: 2px solid #ffd700;
+    box-shadow: 
+        0 0 50px rgba(255, 215, 0, 0.5),
+        0 0 100px rgba(255, 140, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.settings-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+    color: #ffd700;
+    text-align: center;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.settings-content {
+    margin-bottom: 25px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.6), rgba(60, 30, 15, 0.6));
+    border-radius: 15px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.setting-item label {
+    font-size: 18px;
+    color: #f0e68c;
+    font-weight: bold;
+}
+
+/* مفتاح التبديل */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #555;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #32cd32;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+}
+
+/* قائمة منسدلة للجودة */
+select {
+    background: linear-gradient(145deg, rgba(40, 20, 10, 0.8), rgba(60, 30, 15, 0.8));
+    color: #f0e68c;
+    border: 2px solid #8b6914;
+    border-radius: 10px;
+    padding: 8px 15px;
+    font-size: 16px;
+    font-family: 'Tajawal', sans-serif;
+    cursor: pointer;
+    outline: none;
+}
+
+select:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+select option {
+    background: #2a1a1a;
+    color: #f0e68c;
+}
+/* شريط العملات الجديد */
+.coins-ui {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+.coin-icon {
+  margin-left: 6px;
+  font-size: 26px;
+}
+
+/* زر ملء الشاشة */
+.fullscreen-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(145deg, #ff8c00, #ff4500);
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+  z-index: 100;
+}
+.fullscreen-button:hover {
+  background: linear-gradient(145deg, #ff6347, #ff8c00);
+  transform: scale(1.05);
+}
+
+/* تحسين شريط XP */
+.exp-bar {
+  height: 28px;
+  border: 2px solid #32cd32;
+  border-radius: 15px;
+}
+.exp-fill {
+  background: linear-gradient(90deg, #00ff7f, #32cd32, #7cfc00);
+  box-shadow: 0 0 15px rgba(50, 205, 50, 0.7);
+}

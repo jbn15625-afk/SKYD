@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="تصفح مسلسلات AniMerc واختر قصتك القادمة.">
+  <title>المسلسلات | AniMerc</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="index.html">Ani<span>merc</span></a>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a class="active" href="series.html">المسلسلات</a>
+      <a href="episodes.html">الحلقات</a>
+      <a href="index.html">الرئيسية</a>
+    </nav>
+    <a class="login-button" href="admin.html">إضافة مسلسل</a>
+  </header>
+
+  <main>
+    <section class="section catalog-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">مكتبة AniMerc</span>
+          <h1>كل المسلسلات</h1>
+        </div>
+        <span class="section-tag">اختر مسلسلًا لعرض تفاصيله</span>
+      </div>
+
+      <div class="filters" aria-label="تصفية حسب التصنيف">
+        <button class="filter active" data-filter="all">الكل</button>
+        <button class="filter" data-filter="action">أكشن</button>
+        <button class="filter" data-filter="school">مدرسي</button>
+        <button class="filter" data-filter="drama">دراما</button>
+        <button class="filter" data-filter="comedy">كوميديا</button>
+        <button class="filter" data-filter="romance">رومانسي</button>
+        <button class="filter" data-filter="thriller">تشويق</button>
+      </div>
+
+      <div class="series-grid" id="seriesGrid">
+        <article class="empty-state">
+          <span>✦</span>
+          <h3>جارٍ تحميل المسلسلات...</h3>
+          <p>لحظات من فضلك.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="logo" href="index.html">Ani<span>merc</span></a>
+    <p>قصتك القادمة على بُعد حلقة.</p>
+    <small>© 2026 Animerc — جميع الحقوق محفوظة</small>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

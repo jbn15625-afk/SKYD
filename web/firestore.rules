@@ -1,0 +1,138 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(
+          /databases/$(database)/documents/users/$(request.auth.uid)
+        )
+        && get(
+          /databases/$(database)/documents/users/$(request.auth.uid)
+        ).data.role == 'admin';
+    }
+
+    match /users/{uid} {
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.role == 'user';
+
+      allow read: if signedIn()
+        && (request.auth.uid == uid || isAdmin());
+
+      allow update: if isAdmin()
+        || (
+          signedIn()
+          && request.auth.uid == uid
+          && request.resource.data.role == resource.data.role
+        );
+
+      allow delete: if isAdmin();
+    }
+
+    match /series/{docId} {
+      allow read: if true;
+
+      allow create: if request.resource.data.keys().hasAll([
+          'name',
+          'genre',
+          'description',
+          'coverUrl'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'name',
+          'genre',
+          'description',
+          'coverUrl',
+          'year',
+          'rating'
+        ])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() <= 150
+        && request.resource.data.genre in [
+          'action',
+          'school',
+          'drama',
+          'comedy',
+          'romance',
+          'thriller',
+          'other'
+        ]
+        && request.resource.data.description is string
+        && request.resource.data.description.size() <= 3000
+        && request.resource.data.coverUrl is string
+        && request.resource.data.coverUrl.size() <= 2048
+        && (
+          request.resource.data.coverUrl == ''
+          || request.resource.data.coverUrl.matches('https?://[^/]+.*')
+        )
+        && (
+          !('year' in request.resource.data)
+          || (
+            request.resource.data.year is int
+            && request.resource.data.year >= 1900
+            && request.resource.data.year <= 2100
+          )
+        )
+        && (
+          !('rating' in request.resource.data)
+          || (
+            request.resource.data.rating is number
+            && request.resource.data.rating >= 0
+            && request.resource.data.rating <= 10
+          )
+        );
+
+      allow update, delete: if isAdmin();
+    }
+
+    match /episodes/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /anime/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /contents/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /top10/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /heroAnime/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /mini_slider/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /animeCategories/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /home_selected_categories/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    match /admin_settings/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

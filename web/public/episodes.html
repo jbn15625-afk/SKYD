@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>إدارة الحلقات | AniMerc</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #090909;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      padding: 20px;
+      border-bottom: 1px solid #292929;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    header a { color: white; text-decoration: none; }
+    .logo { font-size: 24px; font-weight: bold; }
+    header nav { display: flex; gap: 18px; flex-wrap: wrap; }
+    main { max-width: 1000px; margin: auto; padding: 24px 16px; }
+    .panel {
+      background: #141414;
+      border: 1px solid #292929;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+    h1, h2 { margin-top: 0; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .full { grid-column: 1 / -1; }
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #393939;
+      background: #090909;
+      color: white;
+      font: inherit;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    button {
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 11px 16px;
+      background: #f5f5f5;
+      color: #111;
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    #episodeStatus { margin-top: 14px; line-height: 1.8; overflow-wrap: anywhere; }
+    .series-item {
+      padding: 15px 0;
+      border-bottom: 1px solid #292929;
+    }
+    .series-item:last-child { border-bottom: 0; }
+    .series-item h3 { margin: 0 0 8px; }
+    .muted { color: #aaa; font-size: 13px; line-height: 1.8; }
+    .episode-link { color: #ddd; }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+      .panel { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="index.html">AniMerc</a>
+    <nav aria-label="التنقل">
+      <a href="series.html">قائمة المسلسلات</a>
+      <a href="admin.html">إدارة المسلسلات</a>
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html">الصفحة الرئيسية</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h1>إضافة حلقة</h1>
+      <p class="muted">اختر المسلسل المرتبطة به الحلقة، وسيُنشأ معرّف الحلقة تلقائيًا.</p>
+      <form id="episodeForm">
+        <div class="form-grid">
+          <label class="field full">
+            المسلسل *
+            <select name="seriesId" id="episodeSeriesId" required>
+              <option value="">جارٍ تحميل المسلسلات...</option>
+            </select>
+          </label>
+          <label class="field">
+            اسم الحلقة *
+            <input name="episodeName" required maxlength="200">
+          </label>
+          <label class="field">
+            اسم مجموعة الحلقات
+            <input name="episodeGroupName" maxlength="150" placeholder="الموسم الأول">
+          </label>
+          <label class="field">
+            مدة الحلقة (بالدقائق)
+            <input name="duration" type="number" min="0" step="1" placeholder="45">
+          </label>
+          <label class="field">
+            رابط مشاهدة الحلقة *
+            <input name="episodeUrl" type="text" inputmode="url" required placeholder="https://example.com/watch">
+          </label>
+          <label class="field full">
+            رابط إضافي
+            <input name="additionalUrl" type="text" inputmode="url" placeholder="https://example.com/mirror">
+          </label>
+          <label class="field full">
+            وصف الحلقة
+            <textarea name="description" maxlength="3000"></textarea>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="saveEpisodeBtn" type="submit" disabled>إضافة الحلقة</button>
+        </div>
+        <p id="episodeStatus" role="status"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>الحلقات الموجودة</h2>
+      <div id="episodeList">جارٍ تحميل الحلقات...</div>
+    </section>
+  </main>
+
+  <script type="module" src="js/episodes.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{
+  "rules": {
+    "series": {
+      ".read": true,
+      "$seriesId": {
+        ".write": "newData.exists() && (!data.exists() || !data.child('id').exists() || newData.child('id').val() === data.child('id').val())",
+        ".validate": "newData.hasChildren(['id', 'name', 'type', 'year', 'countries', 'description', 'audioLanguage', 'subtitleLanguage', 'genre', 'coverUrl', 'desktopBackgroundUrl', 'mobileBackgroundUrl', 'likes', 'studio', 'rating', 'episodeCount', 'platform', 'seasonCount', 'previousSeasonId', 'nextSeasonId']) && newData.child('id').val() === $seriesId",
+        "id": {
+          ".validate": "newData.isString() && newData.val() === $seriesId"
+        },
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 150"
+        },
+        "type": {
+          ".validate": "newData.isString() && newData.val().length <= 60"
+        },
+        "year": {
+          ".validate": "newData.isNumber() && (newData.val() === 0 || (newData.val() >= 1900 && newData.val() <= 2100))"
+        },
+        "countries": {
+          ".validate": "newData.isString() && newData.val().length <= 300"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length <= 3000"
+        },
+        "audioLanguage": {
+          ".validate": "newData.isString() && newData.val().length <= 100"
+        },
+        "subtitleLanguage": {
+          ".validate": "newData.isString() && newData.val().length <= 100"
+        },
+        "genre": {
+          ".validate": "newData.isString() && (newData.val() === 'action' || newData.val() === 'school' || newData.val() === 'drama' || newData.val() === 'comedy' || newData.val() === 'romance' || newData.val() === 'thriller' || newData.val() === 'other')"
+        },
+        "coverUrl": {
+          ".validate": "newData.isString() && newData.val().length <= 2048"
+        },
+        "desktopBackgroundUrl": {
+          ".validate": "newData.isString() && newData.val().length <= 2048"
+        },
+        "mobileBackgroundUrl": {
+          ".validate": "newData.isString() && newData.val().length <= 2048"
+        },
+        "likes": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "studio": {
+          ".validate": "newData.isString() && newData.val().length <= 150"
+        },
+        "rating": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10"
+        },
+        "episodeCount": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "platform": {
+          ".validate": "newData.isString() && newData.val().length <= 150"
+        },
+        "seasonCount": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "previousSeasonId": {
+          ".validate": "newData.isString() && newData.val().length <= 150"
+        },
+        "nextSeasonId": {
+          ".validate": "newData.isString() && newData.val().length <= 150"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "episodes": {
+      ".read": true,
+      "$episodeId": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['seriesId', 'episodeId', 'episodeGroupName', 'episodeUrl', 'episodeName', 'duration', 'additionalUrl', 'description']) && newData.child('episodeId').val() === $episodeId",
+        "seriesId": {
+          ".validate": "newData.isString() && root.child('series').child(newData.val()).exists()"
+        },
+        "episodeId": {
+          ".validate": "newData.isString() && newData.val() === $episodeId"
+        },
+        "episodeGroupName": {
+          ".validate": "newData.isString() && newData.val().length <= 150"
+        },
+        "episodeUrl": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 2048"
+        },
+        "episodeName": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 200"
+        },
+        "duration": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "additionalUrl": {
+          ".validate": "newData.isString() && newData.val().length <= 2048"
+        },
+        "description": {
+          ".validate": "newData.isString() && newData.val().length <= 3000"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "slider": {
+      ".read": true,
+      "$position": {
+        ".write": true,
+        ".validate": "newData.isString() && root.child('series').child(newData.val()).exists()"
+      }
+    }
+  }
+}

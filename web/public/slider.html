@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="اختيار المسلسلات المعروضة في سلايدر الصفحة الرئيسية.">
+  <title>اختيار أنميات السلايدر | AniMerc</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="index.html">Ani<span>merc</span></a>
+    <nav aria-label="التنقل">
+      <a href="index.html">الرئيسية</a>
+      <a class="active" href="slider.html">السلايدر</a>
+      <a href="series.html">المسلسلات</a>
+    </nav>
+    <a class="login-button" href="index.html">العودة للرئيسية</a>
+  </header>
+
+  <main class="slider-admin-main">
+    <section class="pages-intro">
+      <span class="eyebrow">AniMerc</span>
+      <h1>اختيار أنميات السلايدر</h1>
+      <p>اختر المسلسلات التي تريد عرضها في الصفحة الرئيسية، ثم احفظ اختيارك.</p>
+    </section>
+
+    <div class="slider-admin-toolbar">
+      <span id="sliderSelectionCount" class="section-tag">لم يتم اختيار مسلسلات</span>
+      <button id="saveSliderSelection" class="primary-button" type="button" disabled>حفظ الاختيار</button>
+    </div>
+    <p id="sliderAdminStatus" class="slider-admin-status" role="status">جارٍ تحميل المسلسلات...</p>
+    <div id="sliderSeriesList" class="slider-series-list"></div>
+  </main>
+
+  <footer>
+    <a class="logo" href="index.html">Ani<span>merc</span></a>
+    <p>قصتك القادمة على بُعد حلقة.</p>
+    <small>© 2026 Animerc — جميع الحقوق محفوظة</small>
+  </footer>
+
+  <script type="module" src="js/slider.js?v=20261013-1"></script>
+</body>
+</html>
